@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand text-light" href="/">Programming Forum</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active text-light" aria-current="page" href="/">Home</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+      <% if (Category != null) { %>
+        <div class="container">
+          <div class="jumbotron col-md-8 container my-3">
+              <h1 class="display-4"><%= Category.title  %></h1>
+              <p class="lead"><%= Category.description %></p>
+              <hr class="my-4">
+            </div>
+        </div>
+      <% } %>
+
+
+<div class="container my-3 col-md-7">
+        <form action="/questions" method="post">
+            <h2>Ask a Question</h2>
+            <div class="form-group">
+              <input type="text" class="form-control text-dark fs-2" id="title" name="title" aria-describedby="emailHelp" placeholder="Title">
+            </div>
+            <div class="form-floating my-2">
+                <textarea class="form-control text-dark fs-5" style="height: 150px;" name="description" id="floatingTextarea"></textarea>
+                <label for="floatingTextarea">Describe your self</label>
+              </div>
+
+              <div class="form-group">
+                <input type="hidden" class="form-control text-dark fs-2" id="title" name="type" value="<%= Category.title%>" aria-describedby="emailHelp" placeholder="Title">
+              </div>
+
+              
+            <button type="submit" class="btn btn-primary">Post Question</button>
+          </form>
+      </div>
+
+
+      <% if (Question != null) { %>
+        <div class="container col-md-7">
+          <h2>Here are the Questions related to <%= Category.name %></h2>
+  
+          <% Question.forEach((Question, index) => { %>
+            <div class="media my-4">
+              <div class="media-body">
+                <h5 class="mt-0"><%= Question.title %></h5>
+                <p><%= Question.description %></p>
+                <a href="/thread/<%= Question._id %>" class="btn btn-primary col-md-3">View Answer</a>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      <% } %>
+
+    
+      
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  </body>
+</html>
